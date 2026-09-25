@@ -1,0 +1,5 @@
+name: UBC HTMX Routes
+type: module
+description: "Adds custom htmx routes for content entities and defines the view mode those routes should use. This allows content to be loaded via htmx without surrounding structural layout."
+package: UBC Web Services
+core_version_requirement: ^10.3 || ^11

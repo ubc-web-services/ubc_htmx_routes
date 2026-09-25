@@ -1,0 +1,3 @@
+administer ubc htmx routes:
+  title: 'Administer UBC HTMX Routes settings'
+  restrict access: true

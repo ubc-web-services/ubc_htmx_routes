@@ -1,0 +1,16 @@
+ubc_htmx_routes.htmx_node:
+  path: '/htmx/{entity_type}/{entity_id}'
+  defaults:
+    _controller: '\Drupal\ubc_htmx_routes\Controller\HtmxEntityController::view'
+  requirements:
+    _custom_access: '\Drupal\ubc_htmx_routes\Controller\HtmxEntityController::access'
+    entity_type: '[a-z_]+'
+    entity_id: '.+'
+
+ubc_htmx_routes.settings:
+  path: '/admin/config/content/ubc-htmx-routes'
+  defaults:
+    _form: '\Drupal\ubc_htmx_routes\Form\SettingsForm'
+    _title: 'UBC HTMX Routes settings'
+  requirements:
+    _permission: 'administer ubc htmx routes'

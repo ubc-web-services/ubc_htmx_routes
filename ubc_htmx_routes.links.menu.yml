@@ -1,0 +1,6 @@
+ubc_htmx_routes.settings:
+  title: 'UBC HTMX Routes'
+  description: 'Configure the view mode used for htmx node routes.'
+  parent: system.admin_config_content
+  route_name: ubc_htmx_routes.settings
+  weight: 10

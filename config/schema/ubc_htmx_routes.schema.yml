@@ -1,0 +1,16 @@
+ubc_htmx_routes.settings:
+  type: config_object
+  label: 'UBC HTMX Routes settings'
+  mapping:
+    entity_types:
+      type: sequence
+      label: 'Entity type configuration'
+      sequence:
+        type: mapping
+        mapping:
+          entity_type:
+            type: string
+            label: 'Entity type ID'
+          view_mode:
+            type: string
+            label: 'View mode'
