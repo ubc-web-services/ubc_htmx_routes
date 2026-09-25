@@ -21,4 +21,4 @@ dependencies:
 
 ## HTMX docs
 htmx is a library (included in Drupal core) that allows you to access modern browser features directly from HTML, rather than using javascript.
-(https://htmx.org/docs/)[https://htmx.org/docs/]
+[https://htmx.org/docs/]
