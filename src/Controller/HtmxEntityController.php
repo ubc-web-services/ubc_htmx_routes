@@ -16,20 +16,13 @@ use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 class HtmxEntityController extends ControllerBase {
 
-  protected RendererInterface $renderer;
-  protected ConfigFactoryInterface $htmxConfigFactory;
-  protected EntityDisplayRepositoryInterface $entityDisplayRepository;
-
   public function __construct(
     EntityTypeManagerInterface $entity_type_manager,
-    RendererInterface $renderer,
-    ConfigFactoryInterface $config_factory,
-    EntityDisplayRepositoryInterface $entity_display_repository
+    protected RendererInterface $renderer,
+    protected ConfigFactoryInterface $htmxConfigFactory,
+    protected EntityDisplayRepositoryInterface $entityDisplayRepository
   ) {
     $this->entityTypeManager = $entity_type_manager;
-    $this->renderer = $renderer;
-    $this->htmxConfigFactory = $config_factory;
-    $this->entityDisplayRepository = $entity_display_repository;
   }
 
   public static function create(ContainerInterface $container) {
@@ -80,7 +73,7 @@ class HtmxEntityController extends ControllerBase {
     try {
       $entity = $this->loadEntity($entity_type, $entity_id);
     }
-    catch (NotFoundHttpException $e) {
+    catch (NotFoundHttpException) {
       return AccessResult::forbidden();
     }
 
@@ -103,9 +96,7 @@ class HtmxEntityController extends ControllerBase {
       ->view($entity, $view_mode);
 
     $context = new RenderContext();
-    $markup = $this->renderer->executeInRenderContext($context, function () use ($build) {
-      return $this->renderer->render($build);
-    });
+    $markup = $this->renderer->executeInRenderContext($context, fn() => $this->renderer->render($build));
 
     $response = new CacheableResponse((string) $markup);
     $response->addCacheableDependency($this->htmxConfigFactory->get('ubc_htmx_routes.settings'));

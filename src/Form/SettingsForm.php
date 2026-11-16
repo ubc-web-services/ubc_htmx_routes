@@ -12,18 +12,12 @@ use Symfony\Component\DependencyInjection\ContainerInterface;
 
 class SettingsForm extends ConfigFormBase {
 
-  protected EntityDisplayRepositoryInterface $entityDisplayRepository;
-  protected EntityTypeManagerInterface $entityTypeManagerService;
-
   public function __construct(
     ConfigFactoryInterface $config_factory,
-    TypedConfigManagerInterface $typed_config_manager,
-    EntityDisplayRepositoryInterface $entity_display_repository,
-    EntityTypeManagerInterface $entity_type_manager
+    protected EntityDisplayRepositoryInterface $entityDisplayRepository,
+    protected EntityTypeManagerInterface $entityTypeManagerService
   ) {
     parent::__construct($config_factory, $typed_config_manager);
-    $this->entityDisplayRepository = $entity_display_repository;
-    $this->entityTypeManagerService = $entity_type_manager;
   }
 
   public static function create(ContainerInterface $container) {
@@ -49,7 +43,7 @@ class SettingsForm extends ConfigFormBase {
   protected function getEligibleEntityTypes(): array {
     $options = [];
     foreach ($this->entityTypeManagerService->getDefinitions() as $id => $definition) {
-      if ($definition->entityClassImplements('Drupal\Core\Entity\ContentEntityInterface')
+      if ($definition->entityClassImplements(\Drupal\Core\Entity\ContentEntityInterface::class)
         && $definition->hasViewBuilderClass()) {
         $options[$id] = $definition->getLabel();
       }
